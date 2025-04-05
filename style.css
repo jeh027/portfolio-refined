@@ -3,9 +3,110 @@ body {
          and use the OS’s UI font as the website font
        */
     font: 100%/1.5 system-ui;
+    max-width: 100ch; /* let’s stop the content from getting so wide */
+    margin-inline: auto; /* let’s center that content; alt: max(1em, (100% - 100ch) / 2) */
+    padding: 1em; /* prevent from touching the edges of the viewport */
+
 }
 
 .responsive-image { 
-    max-width: 75%;
+    max-width: 100%;
     height: auto;
 }
+
+
+/* lab 2 */
+
+nav a {
+    flex: 1; /* blue part of the object */
+    text-decoration: none; /* removes the underline from the links */
+    color: inherit; /* make links use the same text color as their parent element */
+    text-align: center;
+    padding: 0.5em; /* space in green */
+}
+
+nav {
+    --border-color: oklch(50% 10% 200 / 40%); /* canvas and canvastext ensures web content remains visually consistent with operating system or web browser */
+    display: flex; /* this makes sense now */
+    margin-bottom: 5%;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: var(--border-color);
+}
+
+.current {
+    border-bottom-width: 0.4em;
+    border-bottom-style: solid;
+    border-bottom-color: var(--border-color);
+    padding-bottom: 0.4em;
+}
+
+html {
+    --color-accent: oklch(0.7 0.1 102); /* sets accent color (custom property) */
+    accent-color: var(--color-accent); /* applies accent color (custom property) to entire document */
+}
+
+nav a:hover {
+    border-bottom-width: 0.4em;
+    border-bottom-style: solid;
+    border-bottom-color: var(--color-accent); /* references accent color (custom property) */
+    background-color: color-mix(in oklch, var(--color-accent), canvas 85%); /* mix two colors together */
+    padding-bottom: 0.4em;
+}
+
+/* form label, form button {
+    display: block;
+    width: 100%;
+}
+
+form input, form textarea {
+    display: block;
+    width: 100%;
+    box-sizing: border-box; content area adjusts to account for the padding and border
+    margin-bottom: 1em;
+} */
+
+form {
+    display: grid; /* automatic grid placement algorithm */
+    grid-template-columns: auto 1fr; /* 1fr takes up as much space as possible */
+    gap: 1em
+}
+
+label {
+    display: contents; /* place its children in the grid (or descendants); essentially a subgrid within the grid*/
+}
+
+button {
+    grid-column: 1 / -1; /* start at the first column and end at the last */
+}
+
+.projects {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(15em, 1fr)); /* adjusts the number of columns based on the container's width, at least 15em wide but fill proportionally if extra space */
+    gap: 1em;
+    padding-top: 1em;
+}
+
+.projects article {
+    display: grid;
+    grid-template-columns: subgrid;
+    grid-row: span 3;
+}
+
+h1 {
+    font-size: 250%;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    line-height: 1.1;
+    text-wrap: balance;
+}
+
+.to-center { /* for resume title */
+    text-align: center; /* sets the height of each line of text to be 1.1 times the size of the font for these headings */
+    padding-top: 1em; /* text-wrap: balance to prevent uneven lines */
+}
+
+/* Tip: You may want to nest certain CSS style rules to apply separate effects on the same element tag */
+
+/* end of lab 2 */
