@@ -44,6 +44,7 @@ nav {
 html {
     --color-accent: oklch(0.7 0.1 102); /* sets accent color (custom property) */
     accent-color: var(--color-accent); /* applies accent color (custom property) to entire document */
+    /* color-scheme: light; default is light when renders */ 
 }
 
 nav a:hover {
@@ -73,7 +74,10 @@ form {
 }
 
 label {
-    display: contents; /* place its children in the grid (or descendants); essentially a subgrid within the grid*/
+    display: contents; /* makes parent element "invisible" for layout purposes (in this case, makes the child a parent) */
+    /* display: grid;
+    grid-template-columns: subgrid;
+    grid-column: 1/-1; */
 }
 
 button {
@@ -91,6 +95,11 @@ button {
     display: grid;
     grid-template-columns: subgrid;
     grid-row: span 3;
+    /* some styling stuff for each project*/
+    padding: 1em;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
 }
 
 h1 {
@@ -98,15 +107,28 @@ h1 {
 }
 
 h1, h2, h3, h4, h5, h6 {
-    line-height: 1.1;
-    text-wrap: balance;
+    line-height: 1.1; /* sets the height of each line of text to be 1.1 times the size of the font for these headings */
+    text-wrap: balance; /* text-wrap: balance to prevent uneven lines */
 }
 
 .to-center { /* for resume title */
-    text-align: center; /* sets the height of each line of text to be 1.1 times the size of the font for these headings */
-    padding-top: 1em; /* text-wrap: balance to prevent uneven lines */
+    text-align: center;
+    padding-top: 1em;
 }
 
 /* Tip: You may want to nest certain CSS style rules to apply separate effects on the same element tag */
 
 /* end of lab 2 */
+
+/* lab 3 */
+
+.color-scheme {
+    position: absolute;
+    top: 1em;
+    right: 1em;
+}
+
+.color-scheme, .color-scheme select {
+    font-size: 80%;
+    font-family: inherit;
+}
