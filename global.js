@@ -99,6 +99,7 @@ document.body.insertAdjacentHTML(
 
 // default at start of page (is_default?)
 // event listener
+// need to set default mode when first rendered in
 
 function article_background(new_color) {
   // Select the <article> element
@@ -130,7 +131,7 @@ function is_default(value) {
 let select = document.querySelector('#set-theme');
 
 select.addEventListener('input', function (event) {
-  document.documentElement.style.setProperty('color-scheme', is_default(event.target.value));
+  document.documentElement.style.setProperty('color-scheme', is_default(event.target.value)); // bug: dark mode, white background for cards
   localStorage.colorScheme = event.target.value; // .key = value
 });
 
@@ -141,5 +142,65 @@ if ("colorScheme" in localStorage) {
   select_element.value = user_theme
 };
 
-
 // end of lab 3 //
+
+// lab 4 //
+
+export async function fetchJSON(url) { // export is used to make a function, variable, or class available for use in other files
+  try {
+    // Fetch the JSON file from the given URL
+    const response = await fetch(url);
+
+    if (!response.ok) { // Boolean that indicates whether the HTTP response status is in the range of 200–299
+      throw new Error(`Failed to fetch projects: ${response.statusText}`);
+    }
+
+    // console.log(response);
+
+    const data = await response.json();
+    return data;
+
+  } catch (error) {
+    console.error('Error fetching or parsing JSON data:', error); // returns none
+  }
+};
+
+// Reusable JavaScript functions encapsulate logic for an independent piece of UI and can be reused across your app
+export function renderProjects(projects, containerElement, headingLevel = 'h2') {
+  if (!Array.isArray(projects)) {
+    throw new Error('Project parameter is not array type')
+  };
+
+  if (!containerElement.tagName.toLowerCase() == 'div') {
+    throw new Error('containerElement not div') // ensures valid element before doing anything further
+  };
+
+  containerElement.innerHTML = '';
+
+  for (let project of projects) {
+    const article = document.createElement('article');
+
+    article.innerHTML = `
+      <${headingLevel}>${project.title}</${headingLevel}>
+      <img src="${project.image}" alt="${project.title}">
+      <p>${project.description}</p>
+      <time>c. ${project.year}</time>
+    `;
+
+    containerElement.appendChild(article); // locate element, add HTML, then append as child to element
+  }
+};
+
+export function numProjects(projects, titleElement) {
+  const length = projects.length
+  titleElement.textContent = `My ${length} Projects!`
+};
+
+// workflow:
+// 1. async function starts executing (allows program to continue running while waiting for async operations to complete)
+// 2. when encounter await, it waits for Promise to resolve, while rest of program keeps running
+// 3. once the promise resolves, execution picks up where it left off
+export async function fetchGitHubData(username) {
+  return fetchJSON(`https://api.github.com/users/${username}`);
+};
+

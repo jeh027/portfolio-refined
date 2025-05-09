@@ -6,7 +6,6 @@ body {
     max-width: 100ch; /* let’s stop the content from getting so wide */
     margin-inline: auto; /* let’s center that content; alt: max(1em, (100% - 100ch) / 2) */
     padding: 1em; /* prevent from touching the edges of the viewport */
-
 }
 
 .responsive-image { 
@@ -27,7 +26,7 @@ nav a {
 
 nav {
     --border-color: oklch(50% 10% 200 / 40%); /* canvas and canvastext ensures web content remains visually consistent with operating system or web browser */
-    display: flex; /* this makes sense now */
+    display: flex; /* container for alignment, responsive to different screen sizes */
     margin-bottom: 5%;
     border-bottom-width: 1px;
     border-bottom-style: solid;
@@ -92,9 +91,11 @@ button {
 }
 
 .projects article {
-    display: grid;
-    grid-template-columns: subgrid;
-    grid-row: span 3;
+    display: grid; /* gives structure to each article */ 
+    grid-template-rows: subgrid; /* uses the exact same row lines as the parent grid — rows lines that it spans in the parent */
+    /* across all child article elements */
+    grid-row: span 4;
+    gap: 1em;
     /* some styling stuff for each project*/
     padding: 1em;
     border: 1px solid #ccc;
@@ -131,4 +132,101 @@ h1, h2, h3, h4, h5, h6 {
 .color-scheme, .color-scheme select {
     font-size: 80%;
     font-family: inherit;
+}
+
+dl {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    font-family: monospace;
+    font-size: 170%;
+}
+
+dt {
+    grid-row: 1;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+dd {
+    grid-row: 2;
+    text-align: center;
+}
+
+#home-info {
+    display: grid;
+    gap: 1em;
+}
+
+/* end of lab 3 */
+
+/* lab 5 */
+
+#projects-pie-plot {
+    max-width: 20em;
+    margin-block: 2em;
+  
+    overflow: visible;
+}
+
+.legend {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(9em, 1fr));
+    /* for the border */
+    padding: 1em;
+    padding-left: 3em;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    gap: 1em;
+}
+
+/* for flex:
+1. child elements positioned dynamically
+2. easy horizontal or vertical alignment
+3. expand or shrink based on available space */
+
+.legend li {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    gap: 0.4em;
+}
+
+.swatch {
+    content: '';
+    width: 16px;
+    height: 16px;
+    background-color: var(--color);
+    border-radius: 4px; /* makes the content look circular */
+}
+
+#pie-chart {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center; /* Adjust vertical alignment if needed */
+    gap: 20px; /* Adjust spacing between the pie chart and legend */
+}
+
+#search {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+}
+
+svg:has(path:hover) { /* applies style to slice if any path inside is being hovered */
+    path:not(:hover) { /* applies style to slice if any path inside is not being hovered */
+      opacity: 0.5;
+    }
+}
+
+path {
+    transition: 300ms;
+    cursor: pointer;
+}
+
+.selected {
+    --color: oklch(60% 45% 0) !important; /* override current color */
+  
+    &:is(path) { /* only paths inside the parent receive the style */
+      fill: var(--color);
+    }
 }

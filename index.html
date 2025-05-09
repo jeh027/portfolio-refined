@@ -18,17 +18,32 @@
             <a href="https://github.com/jeh027" target="_blank">Profile</a>
         </nav> -->
 
-        <h1>Jesse's Website</h1>
-        
-        <p>
-            I am an instructional assistant 👩‍🏫 for DSC 106, an exciting introduction to data visualization 
-            course! 🎓 And, one of my favorite things to do in San Diego is to walk on the beach!
-        </p>
+        <div id="home-info">
+            <h1>Jesse's Website</h1>
+            
+            <p>
+                I am an instructional assistant 👩‍🏫 for DSC 106, an exciting introduction to data visualization 
+                course! 🎓 And, one of my favorite things to do in San Diego is to walk on the beach!
+            </p>
 
-        <img src="images/DJI_0072.JPG", alt="Overhead shot of the beach" class="responsive-image">
-        <!-- -->
+            <img src="images/DJI_0072.JPG", alt="Overhead shot of the beach" class="responsive-image">
+            
+            <div> <!-- latest projects -->
+                <h2>Latest Projects</h2>
+                <div class="projects"></div>
+            </div>
+
+            <div> <!-- github information -->
+                <h2>My GitHub Stats</h2>
+                <div id="profile-stats"></div>
+            </div>
+
+        </div>
 
         <!--links to global.js -->
         <script type="module" src="global.js"></script>
+        <script type="module" src="index.js" defer></script>
+        <!-- prevent document from loading until the script has loaded and finished evaluating -->
+        <!-- makes 'import' and 'export' usable, scoped execution, automatic defer (document parsed before executing) -->
     </body>
 </html>
